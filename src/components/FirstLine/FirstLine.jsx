@@ -1,9 +1,46 @@
 import React from 'react';
-// import './main-page.scss';
+import './first-line.scss';
+import { TopicBlock } from '../Blocks/TopicBlock/TopicBlock';
+import { RichBlock } from '../Blocks/RichBlock/RichBlock';
 
 
 export class FirstLine extends React.Component {
   render() {
-    return (<div>FirstLine</div>)
+    return (<div className="first-line">
+      <div className="first-line__column" style={{ flex: 2 }}>
+        <div className="first-line__row">
+          <RichBlock 
+            caption="Новые правила жизни туляков: «масочный режим», открытие бассейнов, магазинов и парков"
+            date="8:54"
+          />
+        </div>
+      </div>
+      <div className="first-line__column" style={{ flex: 1 }}>
+        <div className="first-line__row">
+          <TopicBlock
+            caption="Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов"
+            date="8:54"
+          />
+        </div>
+        <div className="first-line__row">
+          <TopicBlock
+            caption="Один месяц будет на что купить продукты"
+            date="8:54"
+          />
+        </div>
+        <div className="first-line__row">
+          <TopicBlock
+            caption="Разрешены торговля и прогулки: в каких регионах России начали снимать карантинные меры"
+            date="8:54"
+          />
+        </div>
+        <div className="first-line__row">
+          <TopicBlock
+            caption="В Туле под боком у «Тулачермета» выращивают овощи на продажу"
+            date="8:54"
+          />
+        </div>
+      </div>
+    </div>)
   }
 }

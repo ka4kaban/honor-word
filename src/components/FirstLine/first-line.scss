@@ -1,0 +1,11 @@
+.first-line {
+ display: flex;
+
+ &__column{
+  display: flex;
+  flex-direction: column; 
+ }
+ &__column{
+  display: flex;
+  }
+}
