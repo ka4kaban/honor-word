@@ -1,9 +1,15 @@
 import React from 'react';
-// import './main-page.scss';
+import './footer.scss';
 
 
 export class Footer extends React.Component {
   render() {
-    return (<div>Footer</div>)
+    return (<div className="footer">
+      Темы
+      Новости
+      Экономика
+      Происшествия
+    </div>
+    );
   }
 }
