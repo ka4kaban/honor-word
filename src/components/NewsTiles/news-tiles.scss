@@ -1,0 +1,10 @@
+.news-tiles {
+  display: flex;
+  flex: 3;
+  flex-wrap: wrap;
+  &__block{
+    flex-grow: 1;
+    width: 33%;
+    height: 100px;
+  }
+}

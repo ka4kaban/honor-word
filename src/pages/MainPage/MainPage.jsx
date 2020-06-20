@@ -15,8 +15,8 @@ export class MainPage extends React.Component {
         <div className="main-page__content-container">
           <div className="main-page__innerView-container">
             <FirstLine />
+            <NewsTiles />
           </div>
-          <NewsTiles />
           <div className="main-page__news-feed-container">
             <NewsFeed />
           </div>
