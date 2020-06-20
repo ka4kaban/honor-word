@@ -7,12 +7,12 @@ import './topic-block.scss';
 class TopicBlockComponent extends React.Component {
   static propTypes = {
     caption: string,
-    to: string,
+    id: string,
     date: string,
   }
   onClick = () => {
-    const { to, history } = this.props;
-    history.push(to);
+    const { id, history } = this.props;
+    history.push('/news/' + id);
   }
   render() {
     const { caption, date } = this.props;

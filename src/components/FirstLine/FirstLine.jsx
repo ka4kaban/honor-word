@@ -5,13 +5,27 @@ import { RichBlock } from '../Blocks/RichBlock/RichBlock';
 
 
 export class FirstLine extends React.Component {
+  getPrimaryBlockData() {
+    return {
+      id:'',
+      caption: "Новые правила жизни туляков: «масочный режим», открытие бассейнов, магазинов и парков",
+      img:'',
+      date: "8:54"
+    }
+  }
+  getSecondaryBlockData() {
+
+  }
   render() {
+    const primaryBlockData = this.getPrimaryBlockData();
     return (<div className="first-line">
       <div className="first-line__column" style={{ flex: 2 }}>
         <div className="first-line__row">
           <RichBlock 
-            caption="Новые правила жизни туляков: «масочный режим», открытие бассейнов, магазинов и парков"
-            date="8:54"
+            id={primaryBlockData.id}
+            caption={primaryBlockData.caption}
+            img={primaryBlockData.img}
+            date={primaryBlockData.date}
           />
         </div>
       </div>
