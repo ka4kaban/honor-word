@@ -21,10 +21,10 @@ MongoClient.connect(mongodbUrl, function (err, _db) {
 app.get('/articles', function (req, res) {
     dbo.collection("articles").find().limit(20).toArray(function (err, result) {
         if (err) throw err;
-        res.send(result)
+        res.send({result: result})
         // console.log(result);
-        db.close();
-        return result;
+        // db.close();
+        // return result;
     });
 
     // res.send(articlesDT.articlesLimit())
