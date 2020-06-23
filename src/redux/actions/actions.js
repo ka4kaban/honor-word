@@ -8,10 +8,12 @@ function requestArticles() {
 }
 
 export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES'
+
 function receiveArticles(json) {
   // debugger
   return {
-    type: RECEIVE_ARTICLES,
+    // type: RECEIVE_ARTICLES,
+    type: 'SET_ARTICLES',
     articles: json.data
   }
 }

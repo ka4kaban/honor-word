@@ -32,17 +32,18 @@ export default function (
     state = initialState,
     action
 ) {
+    
     switch (action.type) {
         case ContactActionType.SET_ARTICLES:
-            return {
+        return {
                 ...state,
-                articles: action.payload.articles,
+                articles: action.articles,
             };
 
         case ContactActionType.SET_ARTICLE:
             return {
                 ...state,
-                article: action.payload.article,
+                article: action.article,
             };
 
         default:
