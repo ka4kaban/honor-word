@@ -16,12 +16,18 @@ MongoClient.connect(mongodbUrl, function (err, _db) {
     dbo = _db.db("mydb");
 });
 
-
+//Enable CORS for all HTTP methods
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 app.get('/articles', function (req, res) {
     dbo.collection("articles").find().limit(20).toArray(function (err, result) {
         if (err) throw err;
-        res.send({result: result})
+        res.send({data: result})
         // console.log(result);
         // db.close();
         // return result;

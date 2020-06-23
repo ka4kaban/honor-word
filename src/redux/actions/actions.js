@@ -1,42 +1,54 @@
-import fetch from 'cross-fetch'
-
+// import fetch from 'cross-fetch'
 
 export const REQUEST_ARTICLES = 'REQUEST_ARTICLES'
 function requestArticles() {
   return {
     type: REQUEST_ARTICLES,
-    // subreddit
   }
 }
 
 export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES'
 function receiveArticles(json) {
-  debugger
-    return {
+  // debugger
+  return {
     type: RECEIVE_ARTICLES,
-    // subreddit,
-    // posts: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
+    articles: json.data
   }
 }
 
-
-
 function fetchArticles() {
-    return dispatch => {
-        dispatch(requestArticles())
-        return fetch(`http://localhost:8080/articles/`, {
-            method: 'GET',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(json => dispatch(receiveArticles(json)))
-    }
+  return dispatch => {
+    dispatch(requestArticles())
+    return window.fetch('http://localhost:8080/articles', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => dispatch(receiveArticles(json)))
+  }
 }
+
+// function fetchArticles() {
+//   return dispatch => {
+//     dispatch(requestArticles())
+//     return fetch(`http://localhost:8080/articles`, {
+//       method: 'GET',
+//       headers: {
+//         'Access-Control-Allow-Origin': '*',
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//       }
+//     })
+//       .then(response => {
+//         debugger
+//         return response.json()
+//       })
+//       .then(json => dispatch(receiveArticles(json)))
+//   }
+// }
 
 // window.fetch('https://api.furnas.ru/requests', {
 //     method: 'POST',
@@ -68,8 +80,8 @@ export function loadArticlesAction() {
 
   return (dispatch, getState) => {
     // if (shouldFetchArticles(getState())) {
-      // Dispatch a thunk from thunk!
-      return dispatch(fetchArticles())
+    // Dispatch a thunk from thunk!
+    return dispatch(fetchArticles())
     // } else {
     //   // Let the calling code know there's nothing to wait for.
     //   return Promise.resolve()
