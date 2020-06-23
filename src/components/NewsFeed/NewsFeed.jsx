@@ -1,108 +1,19 @@
 import React from 'react';
 import { TopicBlock } from '../Blocks/TopicBlock/TopicBlock';
+import { selectArticles } from '../../redux/reducers/articlesReducer';
+import { connect } from 'react-redux';
+import { store } from '../../redux/configureStore';
+import { loadArticlesAction } from '../../redux/actions/actions';
+
 import './news-feed.scss';
 
-export class NewsFeed extends React.Component {
-  getDate() {
-    return [
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      }, {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      }, {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-      {
-        caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-        date: "8:54"
-      },
-    ]
+export class NewsFeedComponent extends React.Component {
+  componentDidMount() {
+    store.dispatch(loadArticlesAction())
   }
   render() {
-    const blocks = this.getDate().map((m) =>
+    const { articles } = this.props;
+    const blocks = articles.map((m) =>
       <TopicBlock
         caption={m.caption}
         date={m.date}
@@ -113,3 +24,11 @@ export class NewsFeed extends React.Component {
     </div>)
   }
 }
+
+function mapState(state) {///TODO
+  return {
+    articles: selectArticles(state)
+  }
+}
+
+export const NewsFeed = connect(mapState)(NewsFeedComponent);

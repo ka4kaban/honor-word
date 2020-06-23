@@ -7,10 +7,6 @@ import { store } from '../../redux/configureStore';
 import { loadArticlesAction } from '../../redux/actions/actions';
 
 class NewsTilesComponent extends React.Component {
-  //       caption: "Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов",
-  //       date: "8:54"
-  //     },
-
   componentDidMount() {
     store.dispatch(loadArticlesAction())
   }
@@ -38,6 +34,5 @@ function mapState(state) {///TODO
     articles: selectArticles(state)
   }
 }
-
 
 export const NewsTiles = connect(mapState)(NewsTilesComponent);
