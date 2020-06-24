@@ -1,4 +1,4 @@
-.main-page{
+.news-page{
     padding: 0 64px;
     font-family: Merriweather;
     display: flex;
@@ -7,11 +7,12 @@
 
     &__content-container{
         display: flex;
-        padding-top: 24px;
+        padding: 24px;
     }
 
     &__innerView-container{
         flex: 3;
+        font-size: 18px;
     }
 
     &__news-feed-container{
