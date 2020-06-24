@@ -23,17 +23,18 @@ export class NewsPageComponent extends React.Component {
     return article && article.caption;
   }
   render() {
-    const { article } = this.props;
     return (
       <div className="news-page">
         <Header />
         <div className="news-page__content-container">
           <div className="news-page__innerView-container">
             <h2> {this.getArticleCaption()} </h2>
-            
             {this.getArticleContent()}
           </div>
-          <div className="news-page__news-feed-container">
+          <div className="news-page__simular-articles-container">
+            <div className="news-page__simular-articles-header">
+              ПОХОЖИЕ ТЕМЫ
+            </div>  
             <NewsFeed />
           </div>
         </div>
