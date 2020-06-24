@@ -17,23 +17,32 @@ MongoClient.connect(mongodbUrl, function (err, _db) {
 });
 
 //Enable CORS for all HTTP methods
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
-  });
+});
 
 app.get('/articles', function (req, res) {
+    console.log(1)
     dbo.collection("articles").find().limit(20).toArray(function (err, result) {
         if (err) throw err;
-        res.send({data: result})
+        res.send({ data: result })
         // console.log(result);
         // db.close();
         // return result;
     });
 
     // res.send(articlesDT.articlesLimit())
+});
+
+app.get('/article/:id', function (req, res) { 
+    dbo.collection("articles").find({ uuid: req.params.id }).toArray(function (err, result) {
+        console.log(result);
+        if (err) throw err;
+        res.send({ data: result })
+    });
 });
 
 app.listen(8080);

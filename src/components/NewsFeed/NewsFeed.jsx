@@ -16,6 +16,7 @@ export class NewsFeedComponent extends React.Component {
     const blocks = articles.map((m) =>
       <FeedBlock
         caption={m.caption}
+        uuid={m.uuid}
         date={m.date}
       />);
 

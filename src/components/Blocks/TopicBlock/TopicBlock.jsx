@@ -8,13 +8,13 @@ import { formatDate } from '../../../helpers/dateHelper';
 class TopicBlockComponent extends React.Component {
   static propTypes = {
     caption: string,
-    id: string,
+    uuid: string,
     date: string,
   }
 
   onClick = () => {
-    const { id, history } = this.props;
-    history.push('/news/' + id);
+    const { uuid, history } = this.props;
+    history.push('/news/:' + uuid);
   }
 
   render() {

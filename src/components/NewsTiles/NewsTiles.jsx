@@ -18,6 +18,7 @@ class NewsTilesComponent extends React.Component {
       <div className="news-tiles__block">
         <TopicBlock
           caption={m.caption}
+          uuid={m.uuid}
           date={m.date}
         />
       </div>

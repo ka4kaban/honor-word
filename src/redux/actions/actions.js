@@ -1,5 +1,3 @@
-// import fetch from 'cross-fetch'
-
 export const REQUEST_ARTICLES = 'REQUEST_ARTICLES'
 function requestArticles() {
   return {
@@ -10,9 +8,7 @@ function requestArticles() {
 export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES'
 
 function receiveArticles(json) {
-  // debugger
   return {
-    // type: RECEIVE_ARTICLES,
     type: 'SET_ARTICLES',
     articles: json.data
   }
@@ -33,60 +29,49 @@ function fetchArticles() {
   }
 }
 
-// function fetchArticles() {
-//   return dispatch => {
-//     dispatch(requestArticles())
-//     return fetch(`http://localhost:8080/articles`, {
-//       method: 'GET',
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//       }
-//     })
-//       .then(response => {
-//         debugger
-//         return response.json()
-//       })
-//       .then(json => dispatch(receiveArticles(json)))
-//   }
-// }
-
-// window.fetch('https://api.furnas.ru/requests', {
-//     method: 'POST',
-//     headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({email: contact})
-//   });
-
-// function shouldFetchArticles(state) {
-// return true;
-//     //   const posts = state.postsBySubreddit[subreddit]
-// //   if (!posts) {
-// //     return true
-// //   } else if (posts.isFetching) {
-// //     return false
-// //   } else {
-// //     return posts.didInvalidate
-// //   }
-// }
 
 export function loadArticlesAction() {
-  // Note that the function also receives getState()
-  // which lets you choose what to dispatch next.
-
-  // This is useful for avoiding a network request if
-  // a cached value is already available.
-
   return (dispatch, getState) => {
-    // if (shouldFetchArticles(getState())) {
-    // Dispatch a thunk from thunk!
     return dispatch(fetchArticles())
-    // } else {
-    //   // Let the calling code know there's nothing to wait for.
-    //   return Promise.resolve()
-    // }
+  }
+}
+
+
+
+export const REQUEST_ARTICLE = 'REQUEST_ARTICLE'
+function requestArticle() {
+  return {
+    type: REQUEST_ARTICLE,
+  }
+}
+
+export const RECEIVE_ARTICLE = 'RECEIVE_ARTICLE'
+
+function receiveArticle(json) {
+  return {
+    type: 'SET_ARTICLE',
+    article: json.data[0] //TODO update server
+  }
+}
+
+function fetchArticle(id) {
+  return dispatch => {
+    dispatch(requestArticle())
+    return window.fetch('http://localhost:8080/article/' + id, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => dispatch(receiveArticle(json)))
+  }
+}
+
+
+export function loadArticleByIdAction(id) {
+  return (dispatch, getState) => {
+    return dispatch(fetchArticle(id))
   }
 }
