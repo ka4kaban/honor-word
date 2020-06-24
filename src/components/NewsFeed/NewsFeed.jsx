@@ -1,11 +1,11 @@
 import React from 'react';
-import { TopicBlock } from '../Blocks/TopicBlock/TopicBlock';
 import { selectArticles } from '../../redux/reducers/articlesReducer';
 import { connect } from 'react-redux';
 import { store } from '../../redux/configureStore';
 import { loadArticlesAction } from '../../redux/actions/actions';
 
 import './news-feed.scss';
+import { FeedBlock } from '../Blocks/FeedBlock/FeedBlock';
 
 export class NewsFeedComponent extends React.Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ export class NewsFeedComponent extends React.Component {
   render() {
     const { articles } = this.props;
     const blocks = articles.map((m) =>
-      <TopicBlock
+      <FeedBlock
         caption={m.caption}
         date={m.date}
       />);

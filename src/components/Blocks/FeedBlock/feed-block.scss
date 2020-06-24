@@ -1,0 +1,19 @@
+.feed-block {
+  margin: 16px;
+  cursor: pointer;
+  border: 0 solid rgba(77, 114, 209, 0.3);
+  border-bottom-width: 1px;
+
+  &__date{
+      padding-top: 8px;
+      padding-bottom: 16px;
+      text-transform: uppercase;
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.6);
+  }
+  
+  &:hover{
+    color: #4D72D1;
+  }
+}

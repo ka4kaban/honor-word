@@ -5,7 +5,6 @@ export const formatDate = function(dateString) {
       return dateString;
     }
     if (d.getDay() !== cur.getDay() || d.getMonth() !== cur.getMonth() || d.getYear() !== cur.getYear()) {
-        debugger
       return d.getDay() + '-' + d.getMonth() + '-' + d.getFullYear();
     }
     return d.getHours() + ':' + d.getMinutes();
