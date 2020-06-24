@@ -37,7 +37,7 @@ app.get('/articles', function (req, res) {
     // res.send(articlesDT.articlesLimit())
 });
 
-app.get('/article/:id', function (req, res) { 
+app.get('/article/:id', function (req, res) {
     dbo.collection("articles").find({ uuid: req.params.id }).toArray(function (err, result) {
         console.log(result);
         if (err) throw err;
@@ -45,19 +45,17 @@ app.get('/article/:id', function (req, res) {
     });
 });
 
+app.get('/addArticle/:id/:caption', function (req, res) {
+    var newArticle = {
+        uuid: req.params.id,
+        caption: req.params.caption,
+    };
+    dbo.collection("articles").insertOne(newArticle, function (err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+        db.close();
+    });
+});
+
+
 app.listen(8080);
-
-// http.createServer(function (req, res) {
-//     res.writeHead(200, {'Content-Type': 'text/html'});
-//     if (req.url === '/article') {
-
-//     }
-//     if (req.url === '/articles') {
-
-//     }
-//     var q = url.parse(req.url, true).query;
-//     var txt = q.year + " " + q.month;
-//     res.end(txt);
-// }).listen(8080);
-
-// http://localhost:8080/?year=2017&month=July

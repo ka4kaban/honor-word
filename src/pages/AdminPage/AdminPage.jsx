@@ -1,8 +1,30 @@
 import React from 'react';
 import './admin-page.scss';
+import $ from "jquery";
 import { AdminCard } from './AdminCard/AdminCard';
+import classNames from 'classnames';
 
 const StatusEnum = Object.freeze({ "created": 1, "checking": 2, "correcting": 3, "printing": 4 })
+
+function onDrop() {
+  $('.drop').css({ 'background': '#ff5722' })
+  window.setTimeout(function () {
+    $('.drop').css({ 'background': 'white' })
+  }, 2500);
+}
+
+function isColliding(x, y, element2) {
+  var e2 = {};
+  e2.top = $(element2).offset().top;
+  e2.left = $(element2).offset().left;
+  e2.right = parseFloat($(element2).offset().left) + parseFloat($(element2).width());
+  e2.bottom = parseFloat($(element2).offset().top) + parseFloat($(element2).height());
+
+  if (x > e2.left && x < e2.right && y < e2.bottom && y > e2.top) {
+    return true
+  }
+}
+
 export class AdminPage extends React.Component {
   getArticlesTemplatesData() {
     return [{
@@ -18,8 +40,56 @@ export class AdminPage extends React.Component {
         <AdminCard
           caption={d.caption}
           uuid={d.uuid}
+          className={"drag"}
         />
       )
+  }
+
+  componentDidMount() {
+
+    $('.drag').on('mousedown', function (e) {
+
+      var isDragging = true;
+      var drag = $(this).clone().addClass('dragged').appendTo('.wrapper');
+      var originalPosX = $(this).offset().left;
+      var originalPosY = $(this).offset().top;
+      var startX = e.clientX - originalPosX;
+      var startY = e.clientY - originalPosY;
+      drag.css({ 'left': e.clientX - startX, 'top': e.clientY - startY })
+      drag.css({ 'transform-origin': Math.round(startX / drag.outerWidth() * 100) + '% ' + Math.round(startY / drag.outerHeight() * 100) + '%' })
+      drag.addClass('beginDrag')
+
+      $(window).on('mousemove', function (event) {
+        if (isDragging) {
+          drag.css({ 'left': event.clientX - startX, 'top': event.clientY - startY })
+          if (isColliding(event.clientX, event.clientY, '.drop')) {
+            drag.removeClass('beginDrag')
+            drag.addClass('readyDrop')
+          } else {
+            drag.removeClass('readyDrop')
+          }
+        }
+      });
+
+      $(window).on('mouseup', function (event) {
+        if (isDragging) {
+          $(window).off('mousemove');
+          if (isColliding(event.clientX, event.clientY, '.drop')) {
+            drag.removeClass('readyDrop').addClass('bye');
+
+            window.setTimeout(function () {
+              onDrop()
+              drag.remove()
+            }, 400)
+          } else {
+            drag.animate({ 'top': originalPosY, 'left': originalPosX, 'opacity': 0 }, 400, function () {
+              drag.remove()
+            })
+          }
+          isDragging = false;
+        }
+      })
+    });
   }
   render() {
     return (
@@ -33,7 +103,7 @@ export class AdminPage extends React.Component {
           </div>
         </div>
 
-        <div className="admin-page__list">
+        <div className={classNames("drop", "admin-page__list")}>
           <h2>Проверка</h2>
           {this.getCards(StatusEnum.checking)}
         </div>
