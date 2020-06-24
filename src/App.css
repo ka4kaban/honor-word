@@ -1,5 +1,6 @@
 .App {
   max-width: 1316px;
+  box-shadow: 0 0 18px 0 #edf0f3;
   font-family: Merriweather;
   
   margin: auto;

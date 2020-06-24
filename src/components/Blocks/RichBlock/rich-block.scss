@@ -1,7 +1,9 @@
 .rich-block {
     padding: 16px;
     cursor: pointer;
-  
+    box-shadow: 0 0 18px 0 #edf0f3;
+    border-radius: 4px;
+    
     &__date{
         padding-top: 8px;
         text-transform: uppercase;
