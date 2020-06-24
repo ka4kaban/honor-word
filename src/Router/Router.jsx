@@ -3,11 +3,16 @@ import React from 'react';
 import { Route, Switch, Router } from 'react-router';
 import { MainPage } from '../pages/MainPage/MainPage';
 import { NewsPage } from '../pages/NewsPage/NewsPage';
+import { AdminPage } from '../pages/AdminPage/AdminPage';
 
 const Routes = {
   mainPage: {
     path: '/',
     component: MainPage
+  },
+  adminPage: {
+    path: '/admin',
+    component: AdminPage
   },
   news: {
     path: '/news/:id',
