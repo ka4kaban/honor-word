@@ -25,11 +25,9 @@ app.use(function (req, res, next) {
 });
 
 app.get('/articles', function (req, res) {
-    console.log(1)
     dbo.collection("articles").find().limit(20).toArray(function (err, result) {
         if (err) throw err;
         res.send({ data: result })
-        // console.log(result);
         // db.close();
         // return result;
     });
@@ -39,7 +37,6 @@ app.get('/articles', function (req, res) {
 
 app.get('/article/:id', function (req, res) {
     dbo.collection("articles").find({ uuid: req.params.id }).toArray(function (err, result) {
-        console.log(result);
         if (err) throw err;
         res.send({ data: result })
     });

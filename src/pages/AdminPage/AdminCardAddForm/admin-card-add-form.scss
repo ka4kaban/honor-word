@@ -1,0 +1,31 @@
+.admin-card-add-form{
+    background-color: white; 
+    border-radius: 6px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    
+    &__textarea{
+        flex: 1;
+    }
+    &__buttons-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    &__save-button{
+        margin: 0 8px;
+        width: 100%;
+    }
+
+    &__cancel-button{
+        margin: 0 8px;
+        width: 100%;
+        background-color: #f99090!important;
+    }
+
+    &__cancel-button:hover{
+        background-color: #cc6161!important;
+    }
+}

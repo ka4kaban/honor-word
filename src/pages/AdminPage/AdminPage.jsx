@@ -3,6 +3,8 @@ import './admin-page.scss';
 import $ from "jquery";
 import { AdminCard } from './AdminCard/AdminCard';
 import classNames from 'classnames';
+import { AdminCardAddForm } from './AdminCardAddForm/AdminCardAddForm';
+import { Button } from '../../components/Button/Button';
 
 const StatusEnum = Object.freeze({ "created": 1, "checking": 2, "correcting": 3, "printing": 4 })
 
@@ -26,6 +28,11 @@ function isColliding(x, y, element2) {
 }
 
 export class AdminPage extends React.Component {
+
+  state = {
+    showAddingForm: false
+  }
+
   getArticlesTemplatesData() {
     return [{
       status: StatusEnum.created,
@@ -91,16 +98,36 @@ export class AdminPage extends React.Component {
       })
     });
   }
+  showAddForm = () => {
+    this.setState({ showAddingForm: true })
+  }
+  addCard = (caption) => {
+    debugger
+    // this.setState({ showAddingForm: true })
+  }
+  
+
   render() {
+    const { showAddingForm } = this.state;
     return (
       <div className="admin-page">
 
         <div className="admin-page__list">
           <h2>Создание</h2>
           {this.getCards(StatusEnum.created)}
-          <div className="button">
-            + добавить статью
-          </div>
+          {/* <div className="button" onClick={this.addCard}>
+            
+          </div> */}
+          <Button
+            caption={"+ добавить статью"}
+            onClick={this.showAddForm}
+          />
+          {showAddingForm && <AdminCardAddForm
+            onSave={this.addCard}
+            onCancel={() => {
+              this.setState({ showAddingForm: false })
+            }}
+          />}
         </div>
 
         <div className={classNames("drop", "admin-page__list")}>
