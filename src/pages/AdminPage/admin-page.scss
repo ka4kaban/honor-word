@@ -12,7 +12,7 @@
         height: 800px;
         padding: 16px;
         margin: 16px;
-        background-color: #ebecf0; 
+        background-color: #f7f7f9; 
         border-radius: 6px;
     }
 
@@ -62,9 +62,9 @@
     }
     .drag {
       position:relative;
-      margin: 10px;
-      background: #ff5722;
-      border-radius:15px;
+      // margin: 10px;
+      // background: #ff5722;
+      // border-radius:15px;
       cursor:move;
       z-index:30;
       transition: opacity .3s ease, transform .6s ease;
@@ -89,7 +89,21 @@
       transition: opacity .5s ease;
       animation: bye .4s ease forwards;
     }
+    &__add-button{
+       height: 40px !important;
+       margin-top:16px
+    }
+    &__add-button,
+    &__add-button-caption{
+      display: flex;
+      align-items: center;
+      justify-content: center;
     
+    }
+    &__add-button-plus{
+      font-size: 40px;
+    }
+    caption
     .dragtext,.droptext {
       font-family:'Helvetica';
       font-weight: 900;

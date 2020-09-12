@@ -1,17 +1,23 @@
 .admin-card-add-form{
+    margin-top: 16px;
+
     background-color: white; 
     border-radius: 6px;
-    height: 160px;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
     
     &__textarea{
-        flex: 1;
+        min-height: 100px;
+        resize: vertical;
+        outline: none;
+
     }
     &__buttons-container{
         display: flex;
         flex-direction: row;
         justify-content: center;
+        padding: 8px 0;
     }
 
     &__save-button{
@@ -22,10 +28,12 @@
     &__cancel-button{
         margin: 0 8px;
         width: 100%;
-        background-color: #f99090!important;
+        background-color: #dc3545!important;
+        border-color: #dc3545!important;
     }
-
+    
     &__cancel-button:hover{
-        background-color: #cc6161!important;
+        background-color: #c82333!important;
+        border-color: #bd2130!important;
     }
 }

@@ -1,5 +1,5 @@
 .button{
-    background-color: #b2f3a0; 
+    background-color: #35BB7B;
     border-radius: 6px;
     height: 24px;
 
@@ -7,8 +7,14 @@
     cursor: pointer;
     padding: 8px;
     text-align: center;
+
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
     
     &:hover{
-      background-color: #accea3; 
+      color: #fff;
+      background-color: #218838;
+      border-color: #1e7e34;
     }
 }
