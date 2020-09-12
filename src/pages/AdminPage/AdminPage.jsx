@@ -3,11 +3,12 @@ import './admin-page.scss';
 import $ from "jquery";
 import { AdminCard } from './AdminCard/AdminCard';
 import classNames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 import { AdminCardAddForm } from './AdminCardAddForm/AdminCardAddForm';
 import { Button } from '../../components/Button/Button';
 
 const StatusEnum = Object.freeze({ "created": 5671, "checking": 5672, "correcting": 5673, "printing": 5674 })
-// const StatusIdsEnum = Object.freeze({ "adminPageCreatedList": 1, "adminPageCheckingList": 2, "adminPageCorrectingList": 3, "adminPagePrintingList": 4 });
+
 function onDrop() {
   // $('.drop').css({ 'background': '#ff5722' })
   // window.setTimeout(function () {
@@ -19,28 +20,16 @@ function isColliding(x, y, elemenClass) {
   var cardCoord = {};
   let containers = $(elemenClass);
   for (var card of containers) {
-    debugger
     cardCoord.top = card.offsetTop;
     cardCoord.left = card.offsetLeft;
     cardCoord.right = parseFloat(card.offsetLeft) + parseFloat(card.offsetWidth);
     cardCoord.bottom = parseFloat(card.offsetTop) + parseFloat(card.offsetHeight);
 
-    debugger
     if (x > cardCoord.left && x < cardCoord.right && y < cardCoord.bottom && y > cardCoord.top) {
       return true;
     }
-
   }
-  debugger
   return false;
-  // e2.top = $(elemenClass).offset().top;
-  // e2.left = $(elemenClass).offset().left;
-  // e2.right = parseFloat($(elemenClass).offset().left) + parseFloat($(elemenClass).width());
-  // e2.bottom = parseFloat($(elemenClass).offset().top) + parseFloat($(elemenClass).height());
-
-  // if (x > e2.left && x < e2.right && y < e2.bottom && y > e2.top) {
-  //   return true
-  // }
 }
 
 export class AdminPage extends React.Component {
@@ -85,10 +74,8 @@ export class AdminPage extends React.Component {
   componentDidMount() {
     let context = this;
 
-    // get
     $('.drag').on('mousedown', function (e) {
 
-      debugger
       context.setState({
         selectedCardId: '735f801f-133b-4e5c-9a91-3dfb6312b11d'
       });
@@ -116,24 +103,22 @@ export class AdminPage extends React.Component {
 
       $(window).on('mouseup', function (event) {
         // if (isDragging) {
-          $(window).off('mousemove');
-          if (isColliding(event.clientX, event.clientY, '.drop')) {
-            // drag.removeClass('readyDrop').addClass('bye');
+        $(window).off('mousemove');
+        if (isColliding(event.clientX, event.clientY, '.drop')) {
+          // drag.removeClass('readyDrop').addClass('bye');
 
-            debugger;
-            // 
-            context.updateCard('735f801f-133b-4e5c-9a91-3dfb6312b11d', parseInt(event.target.id));
+          context.updateCard('735f801f-133b-4e5c-9a91-3dfb6312b11d', parseInt(event.target.id));
 
-            // window.setTimeout(function () {
-            //   onDrop()
-            //   drag.remove()
-            // }, 400)
-          } else {
-            // drag.animate({ 'top': originalPosY, 'left': originalPosX, 'opacity': 0 }, 400, function () {
-            //   drag.remove()
-            // })
-          }
-          // isDragging = false;
+          // window.setTimeout(function () {
+          //   onDrop()
+          //   drag.remove()
+          // }, 400)
+        } else {
+          // drag.animate({ 'top': originalPosY, 'left': originalPosX, 'opacity': 0 }, 400, function () {
+          //   drag.remove()
+          // })
+        }
+        // isDragging = false;
         // }
       })
     });
@@ -142,9 +127,16 @@ export class AdminPage extends React.Component {
     this.setState({ showAddingForm: true })
   }
 
+
   addCard = (caption) => {
     debugger
-    // this.setState({ showAddingForm: true })
+    let { cards } = this.state;
+    cards.push({
+      status: StatusEnum.created,
+      caption,
+      uuid: uuidv4(),
+    })
+    this.setState({ cards })
   }
 
 
