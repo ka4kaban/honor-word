@@ -14,7 +14,7 @@ class FeedBlockComponent extends React.Component {
 
   onClick = () => {
     const { uuid, history } = this.props;
-    history.push('/news/' + uuid);
+    history.push('/article/' + uuid);
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './news-page.scss';
+import './article-page.scss';
 import { connect } from 'react-redux';
 import { store } from '../../redux/configureStore';
 import { loadArticleByIdAction } from '../../redux/actions/actions';
@@ -8,11 +8,11 @@ import { selectArticle } from '../../redux/reducers/articlesReducer';
 import { Footer } from '../../components/Footer/Footer';
 import { NewsFeed } from '../../components/NewsFeed/NewsFeed';
 
-export class NewsPageComponent extends React.Component {
+export class ArticlePageComponent extends React.Component {
   componentDidMount() {
     let { id } = this.props.match.params;
     id = id.replace(':', '');
-    store.dispatch(loadArticleByIdAction(id))
+    store.dispatch(loadArticleByIdAction(id));
   }
   getArticleContent() {
     const { article } = this.props;
@@ -24,17 +24,17 @@ export class NewsPageComponent extends React.Component {
   }
   render() {
     return (
-      <div className="news-page">
+      <div className="article-page">
         <Header />
-        <div className="news-page__content-container">
-          <div className="news-page__innerView-container">
+        <div className="article-page__content-container">
+          <div className="article-page__innerView-container">
             <h2> {this.getArticleCaption()} </h2>
             {this.getArticleContent()}
           </div>
-          <div className="news-page__simular-articles-container">
-            <div className="news-page__simular-articles-header">
+          <div className="article-page__simular-articles-container">
+            <div className="article-page__simular-articles-header">
               ПОХОЖИЕ ТЕМЫ
-            </div>  
+            </div>
             <NewsFeed />
           </div>
         </div>
@@ -51,4 +51,4 @@ function mapState(state) {///TODO
   }
 }
 
-export const NewsPage = connect(mapState)(NewsPageComponent);
+export const ArticlePage = connect(mapState)(ArticlePageComponent);

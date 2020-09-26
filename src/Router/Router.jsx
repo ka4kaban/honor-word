@@ -2,8 +2,8 @@ import React from 'react';
 // import string from 'prop-types';
 import { Route, Switch, Router } from 'react-router';
 import { MainPage } from '../pages/MainPage/MainPage';
-import { NewsPage } from '../pages/NewsPage/NewsPage';
 import { AdminPage } from '../pages/AdminPage/AdminPage';
+import { ArticlePage } from '../pages/ArticlePage/ArticlePage';
 
 const Routes = {
   mainPage: {
@@ -14,9 +14,9 @@ const Routes = {
     path: '/admin',
     component: AdminPage
   },
-  news: {
-    path: '/news/:id',
-    component: NewsPage
+  article: {
+    path: '/article/:id',
+    component: ArticlePage
   },
 }
 

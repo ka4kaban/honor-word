@@ -13,7 +13,7 @@ export class RichBlockComponent extends React.Component {
   }
   onClick = () => {
     const { id, history } = this.props;
-    history.push('/news/' + id);
+    history.push('/article/' + id);
   }
   render() {
     const { caption, date } = this.props;

@@ -1,24 +1,27 @@
-.news-page{
+.article-page{
     padding: 0 64px;
     font-family: Merriweather;
     display: flex;
     flex-direction: column;
 
-
     &__content-container{
         display: flex;
-        padding: 24px;
+        padding: 24px 0;
+        justify-content: flex-end;
     }
 
     &__innerView-container{
         flex: 3;
         font-size: 18px;
+        max-width: 600px;
+        margin-right: 144px;
     }
 
     &__simular-articles-container{
-        flex: 1;
         border-left: 1px solid rgba(77, 114, 209, 0.3);
+        width: 300px;
     }
+    
     &__simular-articles-header{
         padding: 8px;
         margin-left: 16px;
