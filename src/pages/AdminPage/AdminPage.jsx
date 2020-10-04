@@ -6,8 +6,21 @@ import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { AdminCardAddForm } from './AdminCardAddForm/AdminCardAddForm';
 import { Button } from '../../components/Button/Button';
+import { store } from '../../redux/configureStore';
+import { articleInsert } from '../../redux/actions/article/articleInsert';
+import { loadArticlesAction } from '../../redux/actions/actions';
+import { selectArticles } from '../../redux/reducers/articlesReducer';
+import { connect } from 'react-redux';
+// published
+// const StatusEnum = Object.freeze({ "created": 5671, "checking": 5672, "correcting": 5673, "published": 5674 })
 
-const StatusEnum = Object.freeze({ "created": 5671, "checking": 5672, "correcting": 5673, "printing": 5674 })
+export const ArticleStatus = {
+  created: 'created',
+  checking: 'checking',
+  correcting: 'correcting',
+  published: 'published',
+  archive: 'archive'
+};
 
 function onDrop() {
   // $('.drop').css({ 'background': '#ff5722' })
@@ -32,25 +45,23 @@ function isColliding(x, y, elemenClass) {
   return false;
 }
 
-export class AdminPage extends React.Component {
-
+class AdminPageComponent extends React.Component {
   state = {
     showAddingForm: false,
-    selectedCardId: null,
-    cards: this.getArticlesTemplatesData()
+    selectedArticleId: null,
   }
 
-  getArticlesTemplatesData() {
-    return [{
-      status: StatusEnum.created,
-      caption: "Новая статьяНовая статьяНовая статьяНовая статьяНовая статьяНовая статьяНовая статьяНовая статьяНовая статья",
-      uuid: "735f801f-133b-4e5c-9a91-3dfb6312b11d",
-    }]
-  }
+  // caption: "Москалькова: пикет нельзя рассматривать как митинг даже во время пандемии"
+  // content: "Одиночное пикетирование, даже в условиях пандемии коронавируса, не может рассматриваться как массовое мероприятие. Об этом заявила уполномоченная по правам человека РФ Татьяна Москалькова на видеоконференции с комиссаром Совета Европы по правам человека Дуней Миятович. Таким образом она прокомментировала задержание муниципального депутата и журналиста Ильи Азара."
+  // date: "2020-06-23T00:13:40.000Z"
+  // uuid: "5898f656-a39c-45e7-9e35-aa1c307c8a69"
+  // _id: "5ef20ae393110b40386b7d05"
 
-  filterCards(status) {
-    const { cards } = this.state;
-    return cards
+  filterArticles(status) {
+    const { articles } = this.props;
+    // debugger
+
+    return articles
       .filter((d) => d.status === status)
       .map((d) =>
         <AdminCard
@@ -61,13 +72,13 @@ export class AdminPage extends React.Component {
       )
   }
 
-  updateCard(cardId, status) {
-    const { cards } = this.state;
-    let card = cards.find((t) => t.uuid === cardId);
-    card.status = status;
+  updateArticle(articleId, status) {
+    const { articles } = this.props;
+    let article = articles.find((t) => t.uuid === articleId);
+    article.status = status;
     this.setState({
-      cards: cards,
-      selectedCardId: null
+      articles: articles,
+      selectedArticleId: null
     });
   }
 
@@ -77,7 +88,7 @@ export class AdminPage extends React.Component {
     $('.drag').on('mousedown', function (e) {
 
       context.setState({
-        selectedCardId: '735f801f-133b-4e5c-9a91-3dfb6312b11d'
+        selectedArticleId: '735f801f-133b-4e5c-9a91-3dfb6312b11d'
       });
       // var isDragging = true;
       var drag = $(this).clone().addClass('dragged').appendTo('.wrapper');
@@ -107,7 +118,7 @@ export class AdminPage extends React.Component {
         if (isColliding(event.clientX, event.clientY, '.drop')) {
           // drag.removeClass('readyDrop').addClass('bye');
 
-          context.updateCard('735f801f-133b-4e5c-9a91-3dfb6312b11d', parseInt(event.target.id));
+          context.updateArticle('735f801f-133b-4e5c-9a91-3dfb6312b11d', parseInt(event.target.id));
 
           // window.setTimeout(function () {
           //   onDrop()
@@ -122,34 +133,30 @@ export class AdminPage extends React.Component {
         // }
       })
     });
+
+    store.dispatch(loadArticlesAction());
   }
+  
   showAddForm = () => {
     this.setState({ showAddingForm: true })
   }
 
-
-  addCard = (caption) => {
-    debugger
-    let { cards } = this.state;
-    cards.push({
-      status: StatusEnum.created,
-      caption,
-      uuid: uuidv4(),
-    })
-    this.setState({ cards })
+  addArticle = (caption) => {
+    store.dispatch(articleInsert(uuidv4(), caption, ArticleStatus.created));
+    this.setState({ showAddingForm: false })
   }
-
 
   render() {
     const { showAddingForm } = this.state;
+    
     return (
       <div className="admin-page">
 
         <div
-          id={StatusEnum.created}
+          id={ArticleStatus.created}
           className={classNames("drop", "admin-page__list")}>
           <h2 >Создание</h2>
-          {this.filterCards(StatusEnum.created)}
+          {this.filterArticles("created")}
           <Button
             className={"admin-page__add-button"}
             onClick={this.showAddForm}
@@ -164,7 +171,7 @@ export class AdminPage extends React.Component {
           />
           {showAddingForm &&
             <AdminCardAddForm
-              onSave={this.addCard}
+              onSave={this.addArticle}
               onCancel={() => {
                 this.setState({ showAddingForm: false })
               }}
@@ -172,27 +179,35 @@ export class AdminPage extends React.Component {
         </div>
 
         <div
-          id={StatusEnum.checking}
+          id={ArticleStatus.checking}
           className={classNames("drop", "admin-page__list")}>
           <h2>Проверка</h2>
-          {this.filterCards(StatusEnum.checking)}
+          {this.filterArticles(ArticleStatus.checking)}
         </div>
 
         <div
-          id={StatusEnum.correcting}
+          id={ArticleStatus.correcting}
           className={classNames("drop", "admin-page__list")}>
           <h2 >Коррекция</h2>
-          {this.filterCards(StatusEnum.correcting)}
+          {this.filterArticles(ArticleStatus.correcting)}
         </div>
 
         <div
-          id={StatusEnum.printing}
+          id={ArticleStatus.published}
           className={classNames("drop", "admin-page__list")}>
           <h2 >Печать</h2>
-          {this.filterCards(StatusEnum.printing)}
+          {this.filterArticles(ArticleStatus.published)}
         </div>
 
       </div>
     )
   }
 }
+
+function mapState(state) {///TODO
+  return {
+    articles: selectArticles(state)
+  }
+}
+
+export const AdminPage = connect(mapState)(AdminPageComponent);
