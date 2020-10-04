@@ -8,9 +8,10 @@ import { AdminCardAddForm } from './AdminCardAddForm/AdminCardAddForm';
 import { Button } from '../../components/Button/Button';
 import { store } from '../../redux/configureStore';
 import { articleInsert } from '../../redux/actions/article/articleInsert';
-import { loadArticlesAction } from '../../redux/actions/actions';
+// import { loadArticlesAction } from '../../redux/actions/article/loadArticleByIdAction';
 import { selectArticles } from '../../redux/reducers/articlesReducer';
 import { connect } from 'react-redux';
+import { loadArticlesAction } from '../../redux/actions/articles/loadArticlesAction';
 // published
 // const StatusEnum = Object.freeze({ "created": 5671, "checking": 5672, "correcting": 5673, "published": 5674 })
 

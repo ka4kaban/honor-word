@@ -2,7 +2,7 @@ import React from 'react';
 import './article-page.scss';
 import { connect } from 'react-redux';
 import { store } from '../../redux/configureStore';
-import { loadArticleByIdAction } from '../../redux/actions/actions';
+import { loadArticleByIdAction } from '../../redux/actions/article/loadArticleByIdAction';
 import { Header } from '../../components/Header/Header';
 import { selectArticle } from '../../redux/reducers/articlesReducer';
 import { Footer } from '../../components/Footer/Footer';

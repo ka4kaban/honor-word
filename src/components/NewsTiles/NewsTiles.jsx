@@ -4,7 +4,8 @@ import { TopicBlock } from '../Blocks/TopicBlock/TopicBlock';
 import { selectArticles } from '../../redux/reducers/articlesReducer';
 import { connect } from 'react-redux';
 import { store } from '../../redux/configureStore';
-import { loadArticlesAction } from '../../redux/actions/actions';
+import { loadArticlesAction } from '../../redux/actions/articles/loadArticlesAction';
+// import { loadArticlesAction } from '../../redux/actions/article/loadArticleByIdAction';
 
 class NewsTilesComponent extends React.Component {
   componentDidMount() {
