@@ -58,7 +58,7 @@ class AdminPageComponent extends React.Component {
   // uuid: "5898f656-a39c-45e7-9e35-aa1c307c8a69"
   // _id: "5ef20ae393110b40386b7d05"
 
-  filterArticles(status) {
+  renderArticlesByStatus (status) {
     const { articles } = this.props;
     // debugger
 
@@ -74,13 +74,14 @@ class AdminPageComponent extends React.Component {
   }
 
   updateArticle(articleId, status) {
+    console.log('updateArticle' + articleId)
     const { articles } = this.props;
     let article = articles.find((t) => t.uuid === articleId);
-    article.status = status;
-    this.setState({
-      articles: articles,
-      selectedArticleId: null
-    });
+    // article.status = status;
+    // this.setState({
+    //   articles: articles,
+    //   selectedArticleId: null
+    // });
   }
 
   componentDidMount() {
@@ -135,7 +136,7 @@ class AdminPageComponent extends React.Component {
       })
     });
 
-    store.dispatch(loadArticlesAction());
+    store.dispatch(loadArticlesAction(200));
   }
   
   showAddForm = () => {
@@ -154,10 +155,11 @@ class AdminPageComponent extends React.Component {
       <div className="admin-page">
 
         <div
+        // on
           id={ArticleStatus.created}
           className={classNames("drop", "admin-page__list")}>
           <h2 >Создание</h2>
-          {this.filterArticles("created")}
+          {this.renderArticlesByStatus ("created")}
           <Button
             className={"admin-page__add-button"}
             onClick={this.showAddForm}
@@ -183,21 +185,21 @@ class AdminPageComponent extends React.Component {
           id={ArticleStatus.checking}
           className={classNames("drop", "admin-page__list")}>
           <h2>Проверка</h2>
-          {this.filterArticles(ArticleStatus.checking)}
+          {this.renderArticlesByStatus (ArticleStatus.checking)}
         </div>
 
         <div
           id={ArticleStatus.correcting}
           className={classNames("drop", "admin-page__list")}>
           <h2 >Коррекция</h2>
-          {this.filterArticles(ArticleStatus.correcting)}
+          {this.renderArticlesByStatus (ArticleStatus.correcting)}
         </div>
 
         <div
           id={ArticleStatus.published}
           className={classNames("drop", "admin-page__list")}>
           <h2 >Печать</h2>
-          {this.filterArticles(ArticleStatus.published)}
+          {this.renderArticlesByStatus (ArticleStatus.published)}
         </div>
 
       </div>

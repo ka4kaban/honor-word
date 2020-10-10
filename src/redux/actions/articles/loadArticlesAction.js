@@ -14,10 +14,10 @@ function receiveArticles(json) {
   }
 }
 
-function fetchArticles() {
+function fetchArticles(limit) {
   return dispatch => {
     dispatch(requestArticles())
-    return window.fetch('http://localhost:8080/articles', {
+    return window.fetch('http://localhost:8080/articles/' + limit, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -30,8 +30,8 @@ function fetchArticles() {
 }
 
 
-export function loadArticlesAction() {
+export function loadArticlesAction(limit = 20) {
   return (dispatch, getState) => {
-    return dispatch(fetchArticles())
+    return dispatch(fetchArticles(limit))
   }
 }

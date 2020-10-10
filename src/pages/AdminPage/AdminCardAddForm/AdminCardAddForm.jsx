@@ -8,13 +8,15 @@ import { Button } from '../../../components/Button/Button';
 
 export class AdminCardAddForm extends React.Component {
   static propTypes = {
+    caption: string,
     uuid: string,
+
     onCancel: func,
     onSave: func,
     className: string
   }
   state = {
-    caption: ""
+    caption: this.props.caption || ""
   }
   onCaptionChange = (event) => {
     this.setState({
