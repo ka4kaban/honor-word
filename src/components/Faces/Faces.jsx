@@ -16,23 +16,20 @@ export class Faces extends React.Component {
   render() {
     const { cheked } = this.state;
     return (
-      <div className={'faces'} onClick={this.onCheked}>
+      <label className='faces' onClick={this.onCheked}>
         <div className="faces__spoiler"></div>
         <div className="faces__caption">
           ЛИЦА
         </div>
         <div className="faces__toogler-container">
-
-          <ToggleSwitch />
-          {/* <div className="faces__toogler">
-            <div className="faces__toogler-circle">
-
+          <div className="toggle-switch__container">
+            <div className="switch">
+              <input type="checkbox" />
+              <span className="slider"></span>
             </div>
-          </div> */}
+          </div>
         </div>
-      </div>
+      </label>
     );
   }
 }
-
-//classNames("faces", cheked ?'faces_red': '')

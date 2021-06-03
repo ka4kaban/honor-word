@@ -43,3 +43,68 @@
 .faces_red{
     background-color: red;
 }
+
+
+.toggle-switch{
+    &__container{
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+  /* Basic Rules */
+  .switch input { 
+      display:none;
+  }
+  .switch {
+      width:33px;
+      height:18px;
+      transform:translateY(0%);
+      display: flex;
+      justify-content: flex-end;
+  }
+  /* Style Wired */
+  .slider {
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      background-color: #bce4d1;
+      border-radius:30px;
+      cursor:pointer;
+      border:3px solid transparent;
+      overflow:hidden;
+       transition:.4s;
+  }
+  .slider:before {
+      position:absolute;
+      content:"";
+      width:100%;
+      height:100%;
+      background:white;
+      border-radius:30px;
+      transform:translateX(-28px);
+      transition:.4s;
+  }
+  
+  input:checked + .slider:before {
+      transform:translateX(0px);
+      background:limeGreen;
+  }
+  input:checked + .slider {
+      box-shadow:0 0 0 2px limeGreen,0 0 2px limeGreen;
+  }
+  
+  /* Style Flat */
+  .switch.flat .slider {
+   box-shadow:none;
+  }
+  .switch.flat .slider:before {
+    background:#FFF;
+  }
+  .switch.flat input:checked + .slider:before {
+   background:white;
+  }
+  .switch.flat input:checked + .slider {
+    background:limeGreen;
+  }
