@@ -1,8 +1,11 @@
 // var http = require('http');
 var url = require('url');
-// var dt = require('./testModule');
+const { _ } = require('lodash');
+var { leadership } = require('./mock.leadership');
+
 // var articlesDT = require('./articles/articlesLimit');
 const express = require('express');
+const { randomInt } = require('crypto');
 const app = express();
 var db;
 var dbo;
@@ -26,6 +29,96 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+//-------------------------------------
+app.get('/person/', function (req, res) {
+  console.log('/person/');
+  try {
+    res.send({ data: leadership().person })
+  } catch (e) {
+  }
+});
+
+
+
+// export interface GeoMetaInfoModel {
+//   code: string;
+//   personsCount: number;
+// }
+
+// export interface MetaModel {
+//   total: number;
+//   offset: number;
+//   size: number;
+//   geoItems:{
+//     districts: Array<GeoMetaInfoModel>;
+//     regions: Array<GeoMetaInfoModel>;
+//   }
+// }
+
+
+app.get('/persons/', function (req, res) {
+  console.log('/personssssss/');
+  // if (req.body)
+  // console.log('/body/', JSON.stringify(req.body));
+  // console.log('/query/', JSON.stringify(req.query));
+  const q = req.query.q;
+  const filter = req.query.q.search;
+  const size = req.query.q.size;
+  const offset = req.query.q.offset;
+  let total;
+  // console.log('/filter/', filter);
+  let persons = leadership().data.persons;
+  total = persons.length;
+
+  if (filter) {
+
+    persons = persons.filter(
+      (i) => (i.fio && i.fio.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+        || (i.position && i.position.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+        || (i.sono && i.sono.toString().indexOf(filter.toLowerCase()) !== -1)
+        || (i.position && i.sono && `${i.position}${i.sono}`.indexOf(filter.toLowerCase()) !== -1),
+    );
+    total = persons.length;
+    console.log('/persons2/', persons.length);
+  }
+  const districtsCount = 10;
+  const regionsCount = 70;
+  const districts = [];
+  const regions = [];
+  persons = _.take(_.drop(persons, offset), size);
+
+  for (var i = 0; i < districtsCount; i++) {
+    districts.push({
+      code: i,
+      personsCount: _.random(10)
+    })
+  }
+  
+  for (var i = 0; i < regionsCount; i++) {
+    regions.push({
+      code: i.toString(),
+      personsCount: _.random(10)
+    })
+  }
+  
+  try {
+    res.send({
+      meta: {
+        total,
+        offset,
+        size,
+        geoItems: {
+          districts: districts,
+          regions: regions
+        }
+      },
+      data: persons
+    })
+  } catch (e) { //TODO:add logging
+  }
+});
+
+//-------------------------------------
 
 app.get('/articles/:limit', function (req, res) {
   try {

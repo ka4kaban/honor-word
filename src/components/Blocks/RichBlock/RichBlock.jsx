@@ -16,8 +16,9 @@ export class RichBlockComponent extends React.Component {
     history.push('/article/' + id);
   }
   render() {
-    const { caption, date } = this.props;
+    const { caption, date, img } = this.props;
     return (<div className="rich-block" onClick={this.onClick}>
+      {img ? <img src={img} alt='' className="topic-block__background-img" /> : null}
       {caption}
       <div className="rich-block__date">
         {date}

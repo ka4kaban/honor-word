@@ -10,6 +10,7 @@ class FeedBlockComponent extends React.Component {
     caption: string,
     uuid: string,
     date: string,
+    img: string,
   }
 
   onClick = () => {
@@ -18,11 +19,14 @@ class FeedBlockComponent extends React.Component {
   }
 
   render() {
-    const { caption, date } = this.props;
+    const { caption, date} = this.props;
+    
     return (<div className="feed-block" onClick={this.onClick}>
-      {caption}
+      <div className="feed-block__caption">
+        {caption}
+      </div>
       <div className="feed-block__date">
-        {formatDate(date)}
+        topic, {formatDate(date)}
       </div>
     </div>)
   }

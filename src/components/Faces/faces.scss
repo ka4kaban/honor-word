@@ -1,0 +1,41 @@
+.faces {
+    display: flex;
+    
+    // &__simular-articles-header{
+        padding: 8px;
+        margin: 0 16px 16px 16px;
+      
+        background-color: #35BB7B;
+        border-radius: 4px;
+        color: white;
+        text-align: center;
+        text-transform: uppercase;
+      
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+    //   }
+    &__spoiler{
+        flex:1;
+    }
+    &__caption{
+        display: flex;
+        flex:1;
+        justify-content: center;
+        // margin: auto;
+    }
+    &__toogler-container{
+        flex:1;
+    }
+    &__toogler{
+        
+        width: 36px;
+        height: 18px;
+        // background-color: white;
+        background-color: #bce4d1;
+        border-radius: 12px;
+
+        margin-left: auto;
+    }
+  
+}

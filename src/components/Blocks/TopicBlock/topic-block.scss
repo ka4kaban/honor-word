@@ -1,22 +1,31 @@
+// @keyframes fade {
+//   // from { -webkit-line-clamp: 2;}
+//   // to { -webkit-line-clamp: 10;}
+
+//   0%   {-webkit-line-clamp: 2;}
+//   25%  {-webkit-line-clamp: 3;}
+//   50%  {-webkit-line-clamp: 4;}
+//   100% {-webkit-line-clamp: 6;}
+// }
+
 .topic-block {
   margin: 16px;
-  padding: 16px 24px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   cursor: pointer;
   height: 112px;
   background: #FFFFFF;
-  
-  display: flex;
-  flex-direction: column;
+  height: 180px;  
   justify-content: space-between;
 
+  &__large {
+    height: 392px;
+  }
+  
   &__footer {
       padding-top: 8px;
       text-transform: uppercase;
-      // font-style: italic;
       font-size: 13px;
-
       font-family: Helvetica Neue;
       color: #7686AE;
   }
@@ -25,7 +34,69 @@
     overflow: hidden;
   }
 
+  &__info-container{
+    position: relative;
+    top: -180px;
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 0 4px 4px 0;
+  }
+
+  &__info{
+    color: white;
+    font-weight: 600;
+    line-height: 15px;
+    padding: 0 6px;
+    padding: 12px 6px 0 6px;
+    border-radius: 4px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  }
+  
+  &__info-caption{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+
+  &__info-caption:hover{
+    // display: -webkit-box;
+    -webkit-line-clamp: 10;
+    // animation-name: fade;
+    // animation-duration: 1.6s;
+    // -webkit-box-orient: vertical;  
+    // overflow: hidden;
+  }
+  
+  &__info-date{
+    padding: 4px 0 8px 0;
+    padding-bottom: 8px;
+  }
+
+  &__background-img{
+    // width: 100%;
+    // height: 100%;
+    border-radius: 4px;
+    display: flex;
+    transition: 0.3s;
+  }
+  &__background-img:hover{
+    transform: scale(1.1);
+  }
+  &__background-img-container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  
+  }
+  
+  
+
   &:hover{
-    color: #4D72D1;
+    
+    .topic-block__background-img{
+      transform: scale(1.1);
+    }
   }
 }

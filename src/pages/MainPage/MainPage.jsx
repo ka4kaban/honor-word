@@ -10,15 +10,21 @@ import './main-page.scss';
 export class MainPage extends React.Component {
   render() {
     return (
-      <div className="main-page">
+      <div>
         <Header />
-        <div className="main-page__content-container">
-          <div className="main-page__innerView-container">
-            <FirstLine />
-            <NewsTiles />
-          </div>
-          <div className="main-page__news-feed-container">
-            <NewsFeed />
+        <div className="main-page__container">
+          <div className="main-page">
+
+            <div className="main-page__content-container">
+              <div className="main-page__innerView-container">
+                <FirstLine />
+                <NewsTiles />
+              </div>
+              <div className="main-page__news-feed-container">
+                <NewsFeed />
+              </div>
+            </div>
+
           </div>
         </div>
         <Footer />

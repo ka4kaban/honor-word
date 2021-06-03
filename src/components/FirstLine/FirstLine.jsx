@@ -9,7 +9,7 @@ export class FirstLine extends React.Component {
     return {
       id:'',
       caption: "Новые правила жизни туляков: «масочный режим», открытие бассейнов, магазинов и парков",
-      img:'',
+      img: require('./images/2466408.jpg'),
       date: "8:54"
     }
   }
@@ -21,7 +21,8 @@ export class FirstLine extends React.Component {
     return (<div className="first-line">
       <div className="first-line__column" style={{ flex: 2 }}>
         <div className="first-line__row">
-          <RichBlock 
+          <TopicBlock 
+          size='large'
             id={primaryBlockData.id}
             caption={primaryBlockData.caption}
             img={primaryBlockData.img}
@@ -42,18 +43,18 @@ export class FirstLine extends React.Component {
             date="8:54"
           />
         </div>
-        <div className="first-line__row">
+        {/* <div className="first-line__row">
           <TopicBlock
             caption="Разрешены торговля и прогулки: в каких регионах России начали снимать карантинные меры"
             date="8:54"
           />
-        </div>
-        <div className="first-line__row">
+        </div> */}
+        {/* <div className="first-line__row">
           <TopicBlock
             caption="В Туле под боком у «Тулачермета» выращивают овощи на продажу"
             date="8:54"
           />
-        </div>
+        </div> */}
       </div>
     </div>)
   }

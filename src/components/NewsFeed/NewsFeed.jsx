@@ -7,6 +7,7 @@ import { store } from '../../redux/configureStore';
 import './news-feed.scss';
 import { FeedBlock } from '../Blocks/FeedBlock/FeedBlock';
 import { loadArticlesAction } from '../../redux/actions/articles/loadArticlesAction';
+import { Faces } from '../Faces/Faces';
 
 export class NewsFeedComponent extends React.Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ export class NewsFeedComponent extends React.Component {
       />);
 
     return (<div className="news-feed">
+      <Faces />
       {blocks}
     </div>)
   }

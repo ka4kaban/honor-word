@@ -1,6 +1,7 @@
 import React from 'react';
 import string from 'prop-types';
 import { withRouter } from 'react-router';
+import classNames from 'classnames';
 import './topic-block.scss';
 import { formatDate } from '../../../helpers/dateHelper';
 
@@ -10,6 +11,8 @@ class TopicBlockComponent extends React.Component {
     caption: string,
     uuid: string,
     date: string,
+    topic: string,
+    size: 'small' | 'large' | undefined
   }
 
   onClick = () => {
@@ -18,13 +21,29 @@ class TopicBlockComponent extends React.Component {
   }
 
   render() {
-    const { caption, date } = this.props;
-    return (<div className="topic-block" onClick={this.onClick}>
-      {caption}
-      <div className="topic-block__date">
-        {formatDate(date)}
+    let { caption, date, img, size, topic } = this.props; //TODO const
+    img = img || require('./images/2466408.jpg');
+    topic = topic || 'topic';
+
+    return (
+      <div className={classNames('topic-block', size === 'large' ? 'topic-block__large' : undefined)} onClick={this.onClick}>
+        {img ? <div className="topic-block__background-img-container">
+          <img src={img} alt='' className="topic-block__background-img" />
+        </div> : null}
+        <div className="topic-block__info-container">
+          <div className="topic-block__info">
+
+            <div className="topic-block__info-caption">
+              {caption}
+            </div>
+            <div className="topic-block__info-date">
+              {topic + ', ' + formatDate(date)}
+            </div>
+
+          </div>
+        </div>
       </div>
-    </div>)
+    );
   }
 }
 

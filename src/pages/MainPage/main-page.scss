@@ -1,8 +1,9 @@
 .main-page{
-    padding: 0 64px;
+    // padding: 0 64px;
     display: flex;
     flex-direction: column;
-    background: #F7F7F7;
+    // background: #F7F7F7;
+    max-width: 1316px;
     
     &__content-container{
         display: flex;
@@ -11,6 +12,12 @@
 
     &__innerView-container{
         flex: 3;
+    }
+
+    &__container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &__news-feed-container{
