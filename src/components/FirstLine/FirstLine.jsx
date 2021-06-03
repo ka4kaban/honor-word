@@ -36,7 +36,7 @@ export class FirstLine extends React.Component {
             caption="Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов"
             date="8:54"
           />
-        </div>
+        </div> 
         <div className="first-line__row">
           <TopicBlock
             caption="Один месяц будет на что купить продукты"

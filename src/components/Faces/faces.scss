@@ -1,6 +1,6 @@
 .faces {
     display: flex;
-    
+    cursor: pointer;
     // &__simular-articles-header{
         padding: 8px;
         margin: 0 16px 16px 16px;
@@ -38,4 +38,8 @@
         margin-left: auto;
     }
   
+}
+
+.faces_red{
+    background-color: red;
 }

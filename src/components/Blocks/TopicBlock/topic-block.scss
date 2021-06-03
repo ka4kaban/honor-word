@@ -20,6 +20,14 @@
 
   &__large {
     height: 392px;
+    // height: 640px;
+    .topic-block__background-img{
+      width: 100%;
+      height: 100%;
+    }
+    .topic-block__background-img-container{
+      max-width: unset;
+    }
   }
   
   &__footer {
@@ -88,7 +96,8 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-  
+    border-radius: 4px;
+    max-width: 297px;
   }
   
   
