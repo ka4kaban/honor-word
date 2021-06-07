@@ -26,6 +26,8 @@
     }
     &__toogler-container{
         flex:1;
+        display: flex;
+        justify-content: flex-end;
     }
     &__toogler{
         
@@ -40,17 +42,6 @@
   
 }
 
-.faces_red{
-    background-color: red;
-}
-
-
-.toggle-switch{
-    &__container{
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
   /* Basic Rules */
   .switch input { 
       display:none;
@@ -89,12 +80,9 @@
   
   input:checked + .slider:before {
       transform:translateX(0px);
-      background:limeGreen;
+    //   background:limeGreen;
   }
-  input:checked + .slider {
-      box-shadow:0 0 0 2px limeGreen,0 0 2px limeGreen;
-  }
-  
+
   /* Style Flat */
   .switch.flat .slider {
    box-shadow:none;
@@ -104,7 +92,4 @@
   }
   .switch.flat input:checked + .slider:before {
    background:white;
-  }
-  .switch.flat input:checked + .slider {
-    background:limeGreen;
   }

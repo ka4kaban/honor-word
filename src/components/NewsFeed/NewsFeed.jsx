@@ -7,14 +7,29 @@ import { store } from '../../redux/configureStore';
 import './news-feed.scss';
 import { FeedBlock } from '../Blocks/FeedBlock/FeedBlock';
 import { loadArticlesAction } from '../../redux/actions/articles/loadArticlesAction';
-import { Faces } from '../Faces/Faces';
+import { Faces as FacesButton } from '../FacesButton/FacesButton';
+import { FaceBlock } from '../Blocks/FaceBlock/FaceBlock';
+import { loadPersonsAction } from '../../redux/actions/persons/loadPersonsAction';
+import { selectPersons } from '../../redux/reducers/personsReducer';
 
 export class NewsFeedComponent extends React.Component {
-  componentDidMount() {
-    store.dispatch(loadArticlesAction())
+  state = {
+    showFaces: false
   }
+
+  componentDidMount() {
+    store.dispatch(loadArticlesAction());
+    store.dispatch(loadPersonsAction());
+  }
+
+  onChekedChange = () => {
+    this.setState({ showFaces: !this.state.showFaces });
+  }
+
   render() {
-    const { articles } = this.props;
+    const { articles, persons = [] } = this.props;
+    const { showFaces } = this.state;
+
     const blocks = articles.map((m) =>
       <FeedBlock
         caption={m.caption}
@@ -22,16 +37,24 @@ export class NewsFeedComponent extends React.Component {
         date={m.date}
       />);
 
+    const personsBlocks = persons.map((m) =>
+      <FaceBlock
+        caption={m.caption}
+        uuid={m.uuid}
+        date={m.date}
+      />);
+
     return (<div className="news-feed">
-      <Faces />
-      {blocks}
+      <FacesButton onChekedChange={this.onChekedChange} />
+      {showFaces ? personsBlocks : blocks}
     </div>)
   }
 }
 
 function mapState(state) {///TODO
   return {
-    articles: selectArticles(state)
+    articles: selectArticles(state),
+    persons: selectPersons(state)
   }
 }
 

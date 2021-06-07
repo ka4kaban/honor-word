@@ -56,64 +56,78 @@ app.get('/person/', function (req, res) {
 // }
 
 
-app.get('/persons/', function (req, res) {
-  console.log('/personssssss/');
-  // if (req.body)
-  // console.log('/body/', JSON.stringify(req.body));
-  // console.log('/query/', JSON.stringify(req.query));
-  const q = req.query.q;
-  const filter = req.query.q.search;
-  const size = req.query.q.size;
-  const offset = req.query.q.offset;
-  let total;
-  // console.log('/filter/', filter);
-  let persons = leadership().data.persons;
-  total = persons.length;
+// app.get('/persons/', function (req, res) {
+//   console.log('/personssssss/');
+//   // if (req.body)
+//   // console.log('/body/', JSON.stringify(req.body));
+//   // console.log('/query/', JSON.stringify(req.query));
+//   const q = req.query.q;
+//   const filter = req.query.q.search;
+//   const size = req.query.q.size;
+//   const offset = req.query.q.offset;
+//   let total;
+//   // console.log('/filter/', filter);
+//   let persons = leadership().data.persons;
+//   total = persons.length;
 
-  if (filter) {
+//   if (filter) {
 
-    persons = persons.filter(
-      (i) => (i.fio && i.fio.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-        || (i.position && i.position.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-        || (i.sono && i.sono.toString().indexOf(filter.toLowerCase()) !== -1)
-        || (i.position && i.sono && `${i.position}${i.sono}`.indexOf(filter.toLowerCase()) !== -1),
-    );
-    total = persons.length;
-    console.log('/persons2/', persons.length);
-  }
-  const districtsCount = 10;
-  const regionsCount = 70;
-  const districts = [];
-  const regions = [];
-  persons = _.take(_.drop(persons, offset), size);
+//     persons = persons.filter(
+//       (i) => (i.fio && i.fio.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+//         || (i.position && i.position.toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+//         || (i.sono && i.sono.toString().indexOf(filter.toLowerCase()) !== -1)
+//         || (i.position && i.sono && `${i.position}${i.sono}`.indexOf(filter.toLowerCase()) !== -1),
+//     );
+//     total = persons.length;
+//     console.log('/persons2/', persons.length);
+//   }
+//   const districtsCount = 10;
+//   const regionsCount = 70;
+//   const districts = [];
+//   const regions = [];
+//   persons = _.take(_.drop(persons, offset), size);
 
-  for (var i = 0; i < districtsCount; i++) {
-    districts.push({
-      code: i,
-      personsCount: _.random(10)
-    })
-  }
+//   for (var i = 0; i < districtsCount; i++) {
+//     districts.push({
+//       code: i,
+//       personsCount: _.random(10)
+//     })
+//   }
   
-  for (var i = 0; i < regionsCount; i++) {
-    regions.push({
-      code: i.toString(),
-      personsCount: _.random(10)
-    })
-  }
+//   for (var i = 0; i < regionsCount; i++) {
+//     regions.push({
+//       code: i.toString(),
+//       personsCount: _.random(10)
+//     })
+//   }
   
+//   try {
+//     res.send({
+//       meta: {
+//         total,
+//         offset,
+//         size,
+//         geoItems: {
+//           districts: districts,
+//           regions: regions
+//         }
+//       },
+//       data: persons
+//     })
+//   } catch (e) { //TODO:add logging
+//   }
+// });
+
+//-------------------------------------
+
+app.get('/persons/:limit', function (req, res) {
   try {
-    res.send({
-      meta: {
-        total,
-        offset,
-        size,
-        geoItems: {
-          districts: districts,
-          regions: regions
-        }
-      },
-      data: persons
-    })
+    let limit = req.params.limit && req.params.limit !== "" ? parseInt(req.params.limit) : 20;
+    //TODO добавить фильтрацию по времени публикации
+    dbo.collection("articles").find({ isPerson: true }).limit(limit).toArray(function (err, result) {
+      if (err) throw err;
+      res.send({ data: result })
+    });
   } catch (e) { //TODO:add logging
   }
 });
