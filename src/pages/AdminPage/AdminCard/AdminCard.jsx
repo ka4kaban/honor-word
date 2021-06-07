@@ -32,11 +32,25 @@ export class AdminCard extends React.Component {
   onDrug = () => {
     console.log('onDrug')
   }
+  onDragOver = () => {
+    console.log('onDragOver')
+  }
+  
   onClick = () => {
     console.log('onClick')
   }
+
+  // componentDidMount() {
+  //   const { handleDragStart } = this.props;
+  //   this.addEventListener("dragstart", handleDragStart);
+  // }
+  handleDragStart = (e) => {
+    const { handleDragStart, uuid } = this.props;
+    // const { handleDragStart } = this.props;
+    handleDragStart(e, uuid);
+  }
   render() {
-    const { caption, className, uuid } = this.props;
+    const { caption, className, uuid, handleDragStart } = this.props;
     const { isEditing } = this.state;
     if (isEditing) {
       return (<AdminCardAddForm
@@ -49,8 +63,11 @@ export class AdminCard extends React.Component {
     return (
       <div className={classNames("admin-card", className)}
         draggable="true"
+        id={uuid}
         onDoubleClick={this.onDoubleClick}
-        onDrag={this.onDrug}
+        onDragStart={this.handleDragStart}
+        // onDrag={this.onDrug}
+        // onDragEnd={this.onDragOver}
         onClick={this.onClick}>
         {caption}
       </div>

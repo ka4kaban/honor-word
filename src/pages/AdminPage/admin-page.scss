@@ -12,7 +12,7 @@
         height: 800px;
         padding: 16px;
         margin: 16px;
-        background-color: #f7f7f9; 
+        background-color: gray; 
         border-radius: 6px;
     }
 
@@ -112,4 +112,36 @@
       text-align:center;
       line-height: 190px;
     }
+
+
+    [data-drop-target] {
+			height: 400px;
+			width: 200px;
+			margin: 25px;
+			background-color: gainsboro;
+			float: left;
+		}
+		.drag-enter {
+			border: 2px dashed #000;
+		}
+		.box {
+			width: 100px;
+			height: 100px;
+      float: left;
+		}
+    .box:nth-child(3) {
+      clear: both;
+    }
+		.navy {
+			background-color: navy;
+		}
+		.red {
+			background-color: firebrick;
+		}
+    .green {
+			background-color: darkgreen;
+		}
+		.orange {
+			background-color: orange;
+		}
 }

@@ -3,7 +3,7 @@ import './faces-button.scss';
 import classNames from 'classnames';
 import { ToggleSwitch } from '../ToggleSwitch/ToggleSwitch';
 
-export class Faces extends React.Component {
+export class FacesButton extends React.Component {
   // state = {
   //   cheked: false,
   // }

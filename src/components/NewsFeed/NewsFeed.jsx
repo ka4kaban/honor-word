@@ -7,7 +7,7 @@ import { store } from '../../redux/configureStore';
 import './news-feed.scss';
 import { FeedBlock } from '../Blocks/FeedBlock/FeedBlock';
 import { loadArticlesAction } from '../../redux/actions/articles/loadArticlesAction';
-import { Faces as FacesButton } from '../FacesButton/FacesButton';
+import { FacesButton as FacesButton } from '../FacesButton/FacesButton';
 import { FaceBlock } from '../Blocks/FaceBlock/FaceBlock';
 import { loadPersonsAction } from '../../redux/actions/persons/loadPersonsAction';
 import { selectPersons } from '../../redux/reducers/personsReducer';
