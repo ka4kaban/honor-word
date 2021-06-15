@@ -1,0 +1,9 @@
+@import "../../common/vars";
+@import "../../common/mixins";
+
+.comments-list {
+  &__header{
+    background: rgba(77, 114, 209, 0.4);
+    padding: 12px 8px;
+  }
+}

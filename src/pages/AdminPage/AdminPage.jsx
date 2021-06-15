@@ -5,13 +5,18 @@ import { AdminCard } from './AdminCard/AdminCard';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import { AdminCardAddForm } from './AdminCardAddForm/AdminCardAddForm';
-import { Button } from '../../components/Button/Button';
+// import { Button } from '../../components/button/Button';
 import { store } from '../../redux/configureStore';
 import { articleInsert } from '../../redux/actions/article/articleInsert';
 // import { loadArticlesAction } from '../../redux/actions/article/loadArticleByIdAction';
 import { selectArticles } from '../../redux/reducers/articlesReducer';
 import { connect } from 'react-redux';
 import { loadArticlesAction } from '../../redux/actions/articles/loadArticlesAction';
+import { articleUpdate } from '../../redux/actions/article/articleUpdate';
+import { Header } from '../../components/Header/Header';
+import { HeaderItem } from '../../components/Header/HeaderItem/HeaderItem';
+import { UniversalLink } from '../../components/universal-link/UniversalLink';
+import { Button } from '../../components/button/Button';
 // published
 // const StatusEnum = Object.freeze({ "created": 5671, "checking": 5672, "correcting": 5673, "published": 5674 })
 
@@ -58,11 +63,11 @@ class AdminPageComponent extends React.Component {
   // date: "2020-06-23T00:13:40.000Z"
   // uuid: "5898f656-a39c-45e7-9e35-aa1c307c8a69"
   // _id: "5ef20ae393110b40386b7d05"
-// constructor(props){
-//   super(props);
- 
-//   // debugger;
-// }
+  // constructor(props){
+  //   super(props);
+
+  //   // debugger;
+  // }
   renderArticlesByStatus(status) {
     const { articles } = this.props;
     // debugger
@@ -84,6 +89,8 @@ class AdminPageComponent extends React.Component {
     const { articles } = this.props;
     let article = articles.find((t) => t.uuid === articleId);
     // article.status = status;
+
+    store.dispatch(articleUpdate(articleId, article.caption, status));
     // this.setState({
     //   articles: articles,
     //   selectedArticleId: null
@@ -93,7 +100,7 @@ class AdminPageComponent extends React.Component {
   componentDidMount() {
 
     // var draggable = document.querySelectorAll('[draggable]')
-		// var targets = document.querySelectorAll('[data-drop-target]');
+    // var targets = document.querySelectorAll('[data-drop-target]');
 
     let context = this;
 
@@ -145,15 +152,22 @@ class AdminPageComponent extends React.Component {
     //     // }
     //   })
     // });
-    
+
     var targets = document.querySelectorAll('[data-drop-target]');
-    for(var i = 0; i < targets.length; i++) {
-			targets[i].addEventListener("dragover", this.handleOverDrop);
-			targets[i].addEventListener("drop", this.handleOverDrop);
-			targets[i].addEventListener("dragenter", this.handleDragEnterLeave);
-			targets[i].addEventListener("dragleave", this.handleDragEnterLeave);
-		}
-    
+
+    for (var i = 0; i < targets.length; i++) {
+      let target = targets[i];
+      target.addEventListener("dragover", (e) => this.handleOverDrop(e, target));
+      target.addEventListener("drop", (e) => this.handleOverDrop(e, target));
+      // targets[i].addEventListener("dragover", this.handleOverDrop);
+      // targets[i].addEventListener("drop", this.handleOverDrop);
+      // targets[i].addEventListener("dragover", this.handleOverDrop);
+      // targets[i].addEventListener("drop", this.handleOverDrop);
+
+      target.addEventListener("dragenter", this.handleDragEnterLeave);
+      target.addEventListener("dragleave", this.handleDragEnterLeave);
+    }
+
     store.dispatch(loadArticlesAction(200));
     // debugger;
   }
@@ -178,8 +192,8 @@ class AdminPageComponent extends React.Component {
   //The dragenter event fires when dragging an object over the target. 
   //The css class "drag-enter" is append to the targets object.
   handleDragEnterLeave(e) {
-    if(e.type == "dragenter") {
-      this.className = "drag-enter" 
+    if (e.type == "dragenter") {
+      this.className = "drag-enter"
     } else {
       this.className = "" //Note: "this" referces to the target element where the "dragenter" event is firing from.
     }
@@ -189,8 +203,8 @@ class AdminPageComponent extends React.Component {
 
   //Function handles dragover event eg.. moving your source div over the target div element.
   //If drop event occurs, the function retrieves the draggable element’s id from the DataTransfer object.
-  handleOverDrop(e) {
-    e.preventDefault(); 
+  handleOverDrop(e, target) {
+    e.preventDefault();
     //Depending on the browser in use, not using the preventDefault() could cause any number of strange default behaviours to occur.
     if (e.type != "drop") {
       return; //Means function will exit if no "drop" event is fired.
@@ -203,80 +217,113 @@ class AdminPageComponent extends React.Component {
     //if the event "drop" is fired on the dragged elements original drop target e.i..  it's current parentNode, 
     //then set it's css class to ="" which will remove dotted lines around the drop target and exit the function.
     if (draggedEl.parentNode == this) {
-      this.className = "";
+      target.className = "";
+      // alert(1)
       return; //note: when a return is reached a function exits.
     }
+    // alert(2)
     //Otherwise if the event "drop" is fired from a different target element, detach the dragged element node from it's
     //current drop target (i.e current perantNode) and append it to the new target element. Also remove dotted css class. 
     draggedEl.parentNode.removeChild(draggedEl);
-    this.appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
-    this.className = "";
+    target.appendChild(draggedEl); //Note: "this" references to the current target div that is firing the "drop" event.
+    target.className = "";
+
+    // context
+    this.updateArticle(draggedId, e.target.id);
+
   }//end Function
 
 
   render() {
     const { showAddingForm } = this.state;
-   
 
     return (
-      <div className="admin-page">
+      <div>
+        <Header>
 
-        <div
-          // on
-          data-drop-target="true"
-          id={ArticleStatus.created}
-          // className={classNames("drop", "admin-page__list")}
-          >
-          <h2 >Создание</h2>
-          {this.renderArticlesByStatus("created")}
-          <Button
-            className={"admin-page__add-button"}
-            onClick={this.showAddForm}
-            caption={
-              <div className="admin-page__add-button-caption">
-                <span className="admin-page__add-button-plus">
-                  +
+          <UniversalLink noStyle={true} href="/admin">
+            <Button className="header__button">
+              Новости
+              </Button>
+          </UniversalLink>
+           <UniversalLink noStyle={true} href="/complaints">
+            <Button className="header__button">
+              Жалобы
+              </Button>
+          </UniversalLink>
+
+          <UniversalLink noStyle={true} href="/managment">
+            <Button className="header__button">
+              Управление
+              </Button>
+          </UniversalLink>
+        </Header>
+        <div className="admin-page">
+
+          <span className='creation-container'>
+
+            <div
+              // on
+              data-drop-target="true"
+              id={ArticleStatus.created}
+            // className={classNames("drop", "admin-page__list")}
+            >
+              <h2 >Создание</h2>
+
+              {showAddingForm &&
+                <AdminCardAddForm
+                  onSave={this.addArticle}
+                  onCancel={() => {
+                    this.setState({ showAddingForm: false })
+                  }}
+                />}
+
+              {this.renderArticlesByStatus("created")}
+
+
+            </div>
+
+            <Button
+              className={"admin-page__add-button"}
+              onClick={this.showAddForm}
+              caption={
+                <div className="admin-page__add-button-caption">
+                  <span className="admin-page__add-button-plus">
+                    +
               </span>
                 ДОБАВИТЬ СТАТЬЮ
               </div>
-            }
-          />
-          {showAddingForm &&
-            <AdminCardAddForm
-              onSave={this.addArticle}
-              onCancel={() => {
-                this.setState({ showAddingForm: false })
-              }}
-            />}
-        </div>
+              }
+            />
+          </span>
 
-        <div
-          data-drop-target="true"
-          id={ArticleStatus.checking}
+          <div
+            data-drop-target="true"
+            id={ArticleStatus.checking}
           // className={classNames("drop", "admin-page__list")}
           >
-          <h2>Проверка</h2>
-          {this.renderArticlesByStatus(ArticleStatus.checking)}
-        </div>
+            <h2>Проверка</h2>
+            {this.renderArticlesByStatus(ArticleStatus.checking)}
+          </div>
 
-        <div
-          data-drop-target="true"
-          id={ArticleStatus.correcting}
+          <div
+            data-drop-target="true"
+            id={ArticleStatus.correcting}
           // className={classNames("drop", "admin-page__list")}
           >
-          <h2 >Коррекция</h2>
-          {this.renderArticlesByStatus(ArticleStatus.correcting)}
-        </div>
+            <h2 >Коррекция</h2>
+            {this.renderArticlesByStatus(ArticleStatus.correcting)}
+          </div>
 
-        <div
-          data-drop-target="true"
-          id={ArticleStatus.published}
+          <div
+            data-drop-target="true"
+            id={ArticleStatus.published}
           // className={classNames("drop", "admin-page__list")}
           >
-          <h2 >Печать</h2>
-          {this.renderArticlesByStatus(ArticleStatus.published)}
+            <h2 >Печать</h2>
+            {this.renderArticlesByStatus(ArticleStatus.published)}
+          </div>
         </div>
-
       </div>
     )
   }

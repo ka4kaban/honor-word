@@ -3,7 +3,8 @@ import string, { func } from 'prop-types';
 import classNames from 'classnames';
 
 import './admin-card-add-form.scss';
-import { Button } from '../../../components/Button/Button';
+import { Button } from '../../../components/button/Button';
+// import { Button } from '../../../components/Button/Button';
 
 
 export class AdminCardAddForm extends React.Component {

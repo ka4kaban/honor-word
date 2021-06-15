@@ -93,14 +93,14 @@ app.get('/person/', function (req, res) {
 //       personsCount: _.random(10)
 //     })
 //   }
-  
+
 //   for (var i = 0; i < regionsCount; i++) {
 //     regions.push({
 //       code: i.toString(),
 //       personsCount: _.random(10)
 //     })
 //   }
-  
+
 //   try {
 //     res.send({
 //       meta: {
@@ -158,15 +158,17 @@ app.get('/article/:id', function (req, res) {
 
 app.post('/addArticle', function (req, res) {
   try {
-    dbo.collection("articles").insertOne({
+    var newArticle = {
       uuid: req.body.id,
       creationDate: new Date(),
       caption: req.body.caption,
       status: req.body.status,
-    }, function (err, res) {
-      if (err) throw err;
-      db.close();
-    });
+    };
+    dbo.collection("articles")
+      .insertOne(newArticle)
+      .then((res) => {
+        console.log(res.res)
+      });
     res.send('POST request to homepage')
   } catch (e) { //TODO:add logging
   }
@@ -175,84 +177,27 @@ app.post('/addArticle', function (req, res) {
 
 
 app.post('/updateArticle', function (req, res) {
-  // try {
-  //   console.log('/updateArticle' + req.body + '____' + JSON.stringify(req.body) + '____id' + req.body.id)
-
-  //   var newArticle = {
-  //     $set: {
-  //       updateDate: new Date(),
-  //       caption: { $cond: { if: !!req.body.caption }, then: req.body.caption, else: '$caption' },
-  //       status: { $cond: { if: !!req.body.status }, then: req.body.status, else: '$status' }
-  //       // req.body.caption? req.body.caption : undefined,
-  //       // status: req.body.status ? req.body.status : undefined,
-  //     }
-  //   };
-  //   dbo.collection("articles").updateOne(
-  //     { uuid: req.body.id },
-  //     newArticle,
-  //     function (err, res) {
-  //       if (err) throw err;
-  //       console.log("articles updated");
-  //       db.close();
-  //     });
-  //   res.send('POST request to homepage')
-  // } catch (e) { //TODO:add logging
-  // }
-
-
-  dbo.collection("articles").findOne({ uuid: req.body.id }).then(res => {
-    // if (err) throw err;
-    // console.log('res.caption' + res.caption);
-    // console.log('/oldArticle' + res + '____' + JSON.stringify(res) /*+ '____id' + req.body.id*/)
-    // db.close();
-    const caption = req.body.caption || res.caption;
-    const status = req.body.status || res.status;
-    console.log('res.caption' + caption);
-    console.log('res.status' + status);
-    dbo.collection("articles").updateOne(
-      { uuid: req.body.id },
-      {
-        $set: {
-          updateDate: new Date(),
-          caption: caption,
-          status: status,
-        }
-      }).then((res) => {
-        console.log(res.res)
-      });
-  });
-
+  try {
+    dbo.collection("articles").findOne({ uuid: req.body.id }).then(res => {
+      const caption = req.body.caption || res.caption;
+      const status = req.body.status || res.status;
+      // console.log('res.caption' + caption);
+      // console.log('res.status' + status);
+      dbo.collection("articles").updateOne(
+        { uuid: req.body.id },
+        {
+          $set: {
+            updateDate: new Date(),
+            caption: caption,
+            status: status,
+          }
+        }).then((res) => {
+          console.log(res.res)
+        });
+    });
+  } catch (e) { //TODO:add logging
+  }
 });
 
-
-// app.post('/updateArticle', function (req, res) {
-//   // try {
-//   console.log('/updateArticle' + req.body + '____' + JSON.stringify(req.body) + '____id' + req.body.id)
-
-//   dbo.collection("articles").findOne({ uuid: req.body.id }, function (err, res) {
-//     if (err) throw err;
-//     // console.log('res.caption' + res.caption);
-//     // console.log('/oldArticle' + res + '____' + JSON.stringify(res) /*+ '____id' + req.body.id*/)
-//     // db.close();
-
-//     dbo.collection("articles").updateOne({
-//       uuid: req.body.id,
-//       // creationDate: new Date(),
-//       updateDate: new Date(),
-//       caption: req.body.caption || res.caption,
-//       status: req.body.status || res.status,
-//     }, function (err, res) {
-//       if (err) throw err;
-//       console.log("articles updated");
-//       db.close();
-//     });
-//   });
-
-
-
-//   // res.send('POST request to homepage')
-//   // } catch (e) { //TODO:add logging
-//   // }
-// });
 
 app.listen(8080);

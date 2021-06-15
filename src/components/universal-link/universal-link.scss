@@ -1,0 +1,27 @@
+@import "../../common/vars";
+@import "../../common/mixins";
+
+.universal-link {
+  font-family: $font-family;
+  font-size: 16px;
+  line-height: 16px;
+  color: #333333;
+  border-bottom: 1px solid #FF65B8;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 2px 0;
+  font-weight: 400;
+
+  &_no-style {
+    border: none;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+  }
+  &_white-style {
+    color: white;
+    border: none;
+  }
+}

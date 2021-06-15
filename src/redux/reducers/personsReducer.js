@@ -6,12 +6,12 @@ export function setPersonsAction(persons) {
     return { type: ContactActionType.SET_PERSONS, payload: { persons } }
 }
 
-export function selectArticlePart(state) {
-    return state.articles;
+export function selectPersonPart(state) {
+    return state.persons;
 }
 
 export function selectPersons(state) {
-    return selectArticlePart(state).persons;
+    return selectPersonPart(state).persons;
 }
 
 const initialState = {
@@ -25,7 +25,7 @@ export default function (
 ) {
 
     switch (action.type) {
-        case ContactActionType.SET_ARTICLES:
+        case ContactActionType.SET_PERSONS:
             return {
                 ...state,
                 persons: action.persons,

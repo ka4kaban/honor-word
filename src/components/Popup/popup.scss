@@ -1,0 +1,23 @@
+@import "../../common/vars";
+@import "../../common/mixins";
+
+.popup {
+  position: fixed;
+  top: -19px;
+  height: 100vh;
+  background: #ffffff;
+  width: 100vw;
+  z-index: 1001;
+  left: -16px;
+
+  @include for-tablet-portrait-up {
+    top: -22px;
+    left: -32px;
+  }
+
+  &__portfolio-mode {
+    top: 0;
+    left: 0;
+  }
+
+}

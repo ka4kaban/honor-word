@@ -113,12 +113,19 @@
       line-height: 190px;
     }
 
+.creation-container{
+  display: flex;
+    flex-direction: column;
 
+}
+  
     [data-drop-target] {
-			height: 400px;
-			width: 200px;
+			height: 600px;
+			width: 316px;
 			margin: 25px;
+      padding: 8px;
 			background-color: gainsboro;
+      overflow-y: scroll;
 			float: left;
 		}
 		.drag-enter {

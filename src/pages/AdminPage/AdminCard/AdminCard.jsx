@@ -14,7 +14,15 @@ export class AdminCard extends React.Component {
     className: string
   }
   state = {
-    isEditing: false
+    isEditing: false,
+    caption: string,
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditing: false,
+      caption: props.caption
+    }
   }
   onDoubleClick = () => {
     const { isEditing } = this.state;
@@ -25,6 +33,10 @@ export class AdminCard extends React.Component {
   updateCaption = (caption) => {
    const { uuid } = this.props;
     store.dispatch(articleUpdate(uuid, caption));
+    if(caption.length > 70){
+      alert('Рекомендовано использовать не больше 70 знаков в заголовке чтобы он умещался на двух строках');
+    }
+    this.setState({ isEditing: false, caption: caption })
   }
   closeEditForm = () => {
     this.setState({ isEditing: false })
@@ -50,8 +62,9 @@ export class AdminCard extends React.Component {
     handleDragStart(e, uuid);
   }
   render() {
-    const { caption, className, uuid, handleDragStart } = this.props;
-    const { isEditing } = this.state;
+    const {className, uuid, handleDragStart } = this.props;
+    
+    const { caption,isEditing } = this.state;
     if (isEditing) {
       return (<AdminCardAddForm
         caption={caption}

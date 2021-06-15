@@ -4,6 +4,7 @@ import { Route, Switch, Router } from 'react-router';
 import { MainPage } from '../pages/MainPage/MainPage';
 import { AdminPage } from '../pages/AdminPage/AdminPage';
 import { ArticlePage } from '../pages/ArticlePage/ArticlePage';
+import { ManagmentPage } from '../pages/ManagmentPage/ManagmentPage';
 
 const Routes = {
   mainPage: {
@@ -13,6 +14,10 @@ const Routes = {
   adminPage: {
     path: '/admin',
     component: AdminPage
+  },
+  managmentPage: {
+    path: '/managment',
+    component: ManagmentPage
   },
   article: {
     path: '/article/:id',

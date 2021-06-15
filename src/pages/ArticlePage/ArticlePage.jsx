@@ -7,6 +7,7 @@ import { Header } from '../../components/Header/Header';
 import { selectArticle } from '../../redux/reducers/articlesReducer';
 import { Footer } from '../../components/Footer/Footer';
 import { NewsFeed } from '../../components/NewsFeed/NewsFeed';
+import { CommentsList } from '../../components/comments-list/CommentsList';
 
 export class ArticlePageComponent extends React.Component {
   componentDidMount() {
@@ -30,6 +31,7 @@ export class ArticlePageComponent extends React.Component {
           <div className="article-page__innerView-container">
             <h2> {this.getArticleCaption()} </h2>
             {this.getArticleContent()}
+            <CommentsList />
           </div>
           <div className="article-page__simular-articles-container">
             <div className="article-page__simular-articles-header">
