@@ -17,12 +17,15 @@ export class FirstLine extends React.Component {
 
   }
   render() {
+    const { editable } = this.props;
     const primaryBlockData = this.getPrimaryBlockData();
+    
     return (<div className="first-line">
       <div className="first-line__column" style={{ flex: 2 }}>
         <div className="first-line__row">
           <TopicBlock 
-          size='large'
+            size='large'
+            editable
             id={primaryBlockData.id}
             caption={primaryBlockData.caption}
             img={primaryBlockData.img}
@@ -33,12 +36,14 @@ export class FirstLine extends React.Component {
       <div className="first-line__column" style={{ flex: 1 }}>
         <div className="first-line__row">
           <TopicBlock
+            editable
             caption="Под Тулой незаконно захоронили более 3 млн литров нефтепродуктов"
             date="8:54"
           />
         </div> 
         <div className="first-line__row">
           <TopicBlock
+            editable
             caption="Один месяц будет на что купить продукты"
             date="8:54"
           />

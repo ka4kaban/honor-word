@@ -29,7 +29,7 @@ class ManagmentPageComponent extends React.Component {
         date={m.date}
       />);
     return (
-      <div>
+      <div className="managment-page">
         <Header>
           <UniversalLink noStyle={true} href="/admin">
             <Button className="header__button">
@@ -48,9 +48,14 @@ class ManagmentPageComponent extends React.Component {
               </Button>
           </UniversalLink>
         </Header>
-        ManagmentPage
-        <FirstLine />
-        Лица
+        <div className="managment-page__container">
+          <div >
+            <FirstLine editable={true} />
+          </div>
+          <div>
+            Лица
+        </div>
+        </div>
         {personsBlocks}
       </div>
     )

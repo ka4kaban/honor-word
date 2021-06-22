@@ -1,5 +1,5 @@
 import React from 'react';
-import string from 'prop-types';
+import string, {bool} from 'prop-types';
 import { withRouter } from 'react-router';
 import classNames from 'classnames';
 import './topic-block.scss';
@@ -12,6 +12,7 @@ class TopicBlockComponent extends React.Component {
     uuid: string,
     date: string,
     topic: string,
+    editable: bool,
     size: 'small' | 'large' | undefined
   }
 
@@ -21,12 +22,13 @@ class TopicBlockComponent extends React.Component {
   }
 
   render() {
-    let { caption, date, img, size, topic } = this.props; //TODO const
+    let { caption, date, img, size, topic, editable } = this.props; //TODO const
     img = img || require('./images/2466408.jpg');
     topic = topic || 'topic';
 
     return (
       <div className={classNames('topic-block', size === 'large' ? 'topic-block__large' : undefined)} onClick={this.onClick}>
+        {editable ? editable: null}
         {img ? <div className="topic-block__background-img-container">
           <img src={img} alt='' className="topic-block__background-img" />
         </div> : null}
